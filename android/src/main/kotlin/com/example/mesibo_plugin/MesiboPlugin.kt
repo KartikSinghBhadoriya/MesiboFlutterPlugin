@@ -35,6 +35,7 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     private val MESIBO_ACTIVITY_CHANNEL = "mesibo_plugin/mesiboEvents"
     private var MesiboErrorMessage = "Mesibo has not started yet, Check Credentials"
     private var mUserAccessToken:String = ""
+    private var mPushToken:String = ""
     private var mPeer : String = ""
     private var groupPeer : String = ""
     private var mesibo:Mesibo = Mesibo.getInstance()
@@ -320,12 +321,12 @@ var mEventSink: EventChannel.EventSink? = null
 class MesiboEventsHandler(): EventChannel.StreamHandler , Mesibo.ConnectionListener  {
   // var mEventSink: EventChannel.EventSink? = null
 
-  // override fun Mesibo_onConnectionStatus(status: Int) {
-  //   Log.d("Connecction Status %d",  status.toString())
-  //   if ( status == Mesibo.STATUS_ONLINE ) {
-  //     Log.d("Connecction Status", "Mesibo Connection Status : Online" );
-  //   }
-  // }
+  override fun Mesibo_onConnectionStatus(status: Int) {
+    Log.d("Connecction Status %d",  status.toString())
+    if ( status == Mesibo.STATUS_ONLINE ) {
+      Log.d("Connecction Status", "Mesibo Connection Status : Online" );
+    }
+  }
 
   override fun onListen(p0: Any?, p1: EventChannel.EventSink?) {
     mEventSink = p1
