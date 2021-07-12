@@ -266,8 +266,8 @@ public class SwiftMesiboPlugin: NSObject, FlutterPlugin,MesiboDelegate {
         /** Initialize web api to communicate with your own backend servers */
         //* set user access token
         mesibo.setAccessToken(mUserAccessToken)
-        // mesibo.setPushToken(mUserDeviceToken)
-        mesibo.setPushToken(mUserDeviceToken, voip: true)
+        mesibo.setPushToken(mPushToken, voip: true)
+        // mesibo.setPushToken(mUserDeviceToken, voip: true)
         print(mPushToken)
         print(mUserDeviceToken)
         mEventSink?("Device Token \(mUserDeviceToken)")

@@ -130,7 +130,7 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
         val msgId: Long = Random.nextLong()
         Mesibo.sendReadReceipt( 0, mPeer,0 ,msgId);
         Mesibo.sendMessage(mParameter, msgId , message);
-        mesiboEventsHandler.mEventSink?.success("Message Sent to "+mPeer)
+        mEventSink?.success("Message Sent to "+mPeer)
       }
     }else if( !groupPeer.isEmpty() ){
       var message = call.argument<String>("message")
@@ -141,7 +141,7 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
         val msgId: Long = Random.nextLong()
 
         Mesibo.sendMessage(mParameter, msgId , message);
-        mesiboEventsHandler.mEventSink?.success("Message Sent to "+groupPeer)
+        mEventSink?.success("Message Sent to "+groupPeer)
       }
     } else{
       mEventSink?.success(MesiboErrorMessage);
@@ -161,14 +161,14 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     when( Mesibo.getConnectionStatus() ) {
       Mesibo.STATUS_ONLINE -> {
         print("Mesibo Connection Status : Online")
-        mesiboEventsHandler.mEventSink?.success("Online")
+        mEventSink?.success("Online")
       }
       Mesibo.STATUS_OFFLINE -> {
         print("Mesibo Connection Status : Offline")
-        mesiboEventsHandler.mEventSink?.success("Offline")
+        mEventSink?.success("Offline")
       }
       else ->
-        mesiboEventsHandler.mEventSink?.success("Mesibo Connection Status : Unknown StausCode mesibo.getConnectionStatus())")
+        mEventSink?.success("Mesibo Connection Status : Unknown StausCode mesibo.getConnectionStatus())")
     }
   }
 
@@ -186,7 +186,7 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     if ( param != null ) {
       groupPeer = param[0] // "Group ID"
       mParameter?.setGroup(groupPeer.toLong())
-      mesiboEventsHandler.mEventSink?.success("param set")
+      mEventSink?.success("param set")
     }
   }
 
@@ -196,13 +196,14 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     if (credentials != null)
     {
       mUserAccessToken = credentials[0].toString()
-      mPeer = credentials[1].toString()
+      mPushToken = credentials[1].toString()
+      // mPeer = credentials[1].toString()
 
       //start mesibo here
       mesiboInit()
 
       // set Mesibo MessageParams
-      mParameter = Mesibo.MessageParams( mPeer, 0, Mesibo.FLAG_DEFAULT, 0)
+      // mParameter = Mesibo.MessageParams( mPeer, 0, Mesibo.FLAG_DEFAULT, 0)
     }
   }
 
@@ -218,6 +219,7 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     /** Initialize web api to communicate with your own backend servers */
     //* set user access token
     Mesibo.setAccessToken(mUserAccessToken);
+    Mesibo.setPushToken(mPushToken);
 
     checkAndRequestPermissions()
 
@@ -277,11 +279,11 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
         params?.ts?.let { res.put("timestamp" , it) };
         params?.status?.let { res.put("flag" , it) };
 
-        mesiboEventsHandler.mEventSink?.success(res)
+        mEventSink?.success(res)
       }
       //Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
     } catch (e: Exception) {
-      mesiboEventsHandler.mEventSink?.success(e)
+      mEventSink?.success(e)
       // return false;
     }
     return false
@@ -295,26 +297,41 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     channel.setMethodCallHandler(null)
   }
 
+  override fun Mesibo_onConnectionStatus(p0: Int) {
+    when( p0 ) {
+      Mesibo.STATUS_ONLINE -> {
+        print("Mesibo Connection Status : Online")
+        mEventSink?.success("Online")
+      }
+      Mesibo.STATUS_OFFLINE -> {
+        print("Mesibo Connection Status : Offline")
+        mEventSink?.success("Offline")
+      }
+      else ->
+        mEventSink?.success("Mesibo Connection Status : Unknown StausCode mesibo.getConnectionStatus())")
+    }
+    mEventSink?.success(p0);
+  }
 
 }
 
 var mEventSink: EventChannel.EventSink? = null
 
 class MesiboEventsHandler(): EventChannel.StreamHandler , Mesibo.ConnectionListener  {
-  var mEventSink: EventChannel.EventSink? = null
+  // var mEventSink: EventChannel.EventSink? = null
 
-  override fun Mesibo_onConnectionStatus(status: Int) {
-    Log.d("Connecction Status %d",  status.toString())
-    if ( status == Mesibo.STATUS_ONLINE ) {
-      Log.d("Connecction Status", "Mesibo Connection Status : Online" );
-    }
-  }
+  // override fun Mesibo_onConnectionStatus(status: Int) {
+  //   Log.d("Connecction Status %d",  status.toString())
+  //   if ( status == Mesibo.STATUS_ONLINE ) {
+  //     Log.d("Connecction Status", "Mesibo Connection Status : Online" );
+  //   }
+  // }
 
   override fun onListen(p0: Any?, p1: EventChannel.EventSink?) {
-    this.mEventSink = p1
+    mEventSink = p1
   }
 
   override fun onCancel(p0: Any?) {
-    this.mEventSink = null
+    mEventSink = null
   }
 }
