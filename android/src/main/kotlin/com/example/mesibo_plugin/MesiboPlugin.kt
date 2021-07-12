@@ -298,22 +298,6 @@ public class MesiboPlugin: FlutterPlugin, MethodCallHandler,Mesibo.MessageListen
     channel.setMethodCallHandler(null)
   }
 
-  override fun Mesibo_onConnectionStatus(p0: Int) {
-    when( p0 ) {
-      Mesibo.STATUS_ONLINE -> {
-        print("Mesibo Connection Status : Online")
-        mEventSink?.success("Online")
-      }
-      Mesibo.STATUS_OFFLINE -> {
-        print("Mesibo Connection Status : Offline")
-        mEventSink?.success("Offline")
-      }
-      else ->
-        mEventSink?.success("Mesibo Connection Status : Unknown StausCode mesibo.getConnectionStatus())")
-    }
-    mEventSink?.success(p0);
-  }
-
 }
 
 var mEventSink: EventChannel.EventSink? = null
