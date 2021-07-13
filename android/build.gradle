@@ -51,9 +51,9 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // implementation "com.mesibo.api:mesibo:1.0.97"
-    compile("com.mesibo.api:mesibo:1.2.31")
-    compile("com.mesibo.api:ui:1.2.31")
-    compile("com.mesibo.api:calls:1.2.31")
+    api("com.mesibo.api:mesibo:1.2.31")
+//    compile("com.mesibo.api:ui:1.2.31")
+//    compile("com.mesibo.api:calls:1.2.31")
 //    implementation "com.mesibo.api:mesibo:1.2.31"
 //    implementation "com.mesibo.api:ui:1.2.31"
 //    implementation "com.mesibo.api:calls:1.2.31"

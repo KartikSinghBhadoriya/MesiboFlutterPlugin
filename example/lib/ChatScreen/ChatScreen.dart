@@ -14,7 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
     // TODO: implement initState
 
     mesibo.setAccessTocken(
-        chatToken: "d61f2395f676c6b5c417e99a59881b4ebccabc2418482fe1115141b",
+        chatToken: "f0ea2f4173903fa9c11dc2ff601028aba6a33152943e7715141d",
         // "d61f2395f676c6b5c417e99a59881b4ebccabc2418482fe1115141b",
         deviceToken:
             "e2sfnpyZSuGtVhHAlzmAEP:APA91bGbkl2Ut13gO5dI-KsN95L4U9xGi6ayU2stC6y8uhnPXrpoVpPeSdVPZGSdZN25bPF6e4oQbGm6Q6pMT54HhWAWw5uxNIXhZkDxcBJ7HwwxhFLnVSFJ5JMzRaiC59M-FXlIw7-h"
@@ -43,7 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               RaisedButton(
                 onPressed: () {
-                  mesibo.getOneToOneConversation("medcytes@gmail.com");
+                  mesibo.setGroupParam("121294");
+                  // mesibo.getOneToOneConversation("medcytes@gmail.com");
                 },
                 child: Text("Get Conversation"),
               ),

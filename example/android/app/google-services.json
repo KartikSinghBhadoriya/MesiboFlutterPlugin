@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "677273458139",
+    "firebase_url": "https://galderma-doc.firebaseio.com",
+    "project_id": "galderma-doc",
+    "storage_bucket": "galderma-doc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677273458139:android:d85a90228cd185e2bbc3fe",
+        "android_client_info": {
+          "package_name": "com.medcytes.doc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677273458139-1g4sqoo05cercnjqfoaeumslckk9mntt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpayZ-z1nMzNur9K6L7whdcGOAqo9m7dQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677273458139-1g4sqoo05cercnjqfoaeumslckk9mntt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "677273458139-tivrrooiu8ah5su2e0l28uba985komno.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.medcytes.doc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
